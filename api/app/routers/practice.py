@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-
+from app.routers import practice
 from app.database import get_db
 from app.models import Word, PracticeSession
 from app.schemas import ValidateSentenceRequest, ValidateSentenceResponse
@@ -21,4 +21,9 @@ def validate_sentence(
     # Get word data
     # Mock AI validation
     # Save to database
-    ...
+    return ValidateSentenceResponse(
+        score=85,
+        level="Intermediate",
+        suggestion="Good job! Just a minor correction needed.",
+        corrected_sentence="This is the corrected sentence."
+    )
