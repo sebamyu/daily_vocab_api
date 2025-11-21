@@ -1,10 +1,8 @@
-
 from pydantic import BaseModel
 from typing import List, Optional, Dict
 from datetime import datetime
 
 DifficultyLevel = 'Beginner' | 'Intermediate' | 'Advanced'
-
 
 class WordResponse(BaseModel):
     id: int
@@ -13,7 +11,6 @@ class WordResponse(BaseModel):
     difficulty_level: DifficultyLevel
     class Config:
         from_attributes = True
-
 
 class ValidateSentenceRequest(BaseModel):
     word_id: int
@@ -24,7 +21,6 @@ class ValidateSentenceResponse(BaseModel):
     level: str
     suggestion: str
     corrected_sentence: str
-
 
 class SummaryResponse(BaseModel):
     total_practices: int
@@ -40,6 +36,10 @@ class HistoryItem(BaseModel):
     practiced_at: datetime
     class Config:
         from_attributes = True
+
+
+
+
 
 # from pydantic import BaseModel
 # from datetime import datetime

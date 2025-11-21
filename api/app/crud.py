@@ -1,4 +1,3 @@
-
 from sqlalchemy.orm import Session
 from . import models
 from typing import Dict, Any
@@ -18,7 +17,7 @@ def create_practice_submission(
         user_sentence=submitted_sentence,
         score=score,
         feedback=feedback,
-        corrected_sentence=corrected_sentence
+        corrected_sentence=corrected_sentence,
     )
     db.add(db_submission)
     db.commit()

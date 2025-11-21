@@ -1,10 +1,9 @@
-
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.models import Word
 from app.schemas import WordResponse
 from app.database import get_db
-import random # <-- NEW IMPORT
+import random 
 
 router = APIRouter()
 
@@ -18,6 +17,10 @@ def get_random_word(db: Session = Depends(get_db)):
         )
     random_word = random.choice(words)
     return random_word
+
+
+
+
 
 # from fastapi import APIRouter, Depends, HTTPException
 # import random

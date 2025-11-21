@@ -1,11 +1,10 @@
-
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import Word, PracticeSession
 from app.schemas import ValidateSentenceRequest, ValidateSentenceResponse
 from app.utils import mock_ai_validation
-from app import crud # <-- ADD THIS IMPORT
+from app import crud
 
 router = APIRouter()
 
@@ -35,6 +34,10 @@ def validate_sentence(
         corrected_sentence=result['corrected_sentence']
     )
     return ValidateSentenceResponse(**result)
+
+
+
+
 
 # from fastapi import APIRouter, Depends, HTTPException
 # from sqlalchemy.orm import Session

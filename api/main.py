@@ -1,21 +1,32 @@
 from fastapi import FastAPI
-from app.schemas import WordResponse
-from fastapi import HTTPException
-from app.routers import words
-from app.routers import practice
-from app.routers import stats
-from app.database import engine, Base
 from fastapi.middleware.cors import CORSMiddleware
+from app.routers import words, practice, stats
+from app.database import engine, Base
+from app.schemas import WordResponse
 
-Base.metadata.create_all(bind=engine)
+try:
+    Base.metadata.create_all(bind=engine) 
+    print("Database tables created successfully or already exist.")
+except Exception as e:
+    print(f"Error creating database tables: {e}") 
 
-app = FastAPI()
+app = FastAPI(
+    title="Vocabulary Practice API",
+    version="1.0.0",
+    description="API for vocabulary practice and learning"
+)
 
-app.add_middleware()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(words.router, prefix="/api", tags=["words"])
 app.include_router(practice.router, prefix="/api", tags=["practice"])
-app.include_router(stats.router, prefix="/api", tags=["stats"])
+app.include_router(stats.router, prefix="/api", tags=["stats"]) # <-- Include stats
 
 @app.get("/")
 def read_root():
@@ -29,6 +40,11 @@ def read_root():
             "history": "/api/history"
         }
     }
+
+
+
+
+
 
 # from fastapi import FastAPI
 # from app.schemas import WordResponse

@@ -1,4 +1,3 @@
-
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session, joinedload
 from sqlalchemy import func
@@ -12,12 +11,10 @@ router = APIRouter()
 
 @router.get("/summary", response_model=SummaryResponse)
 def get_summary(db: Session = Depends(get_db)):
-
     total_practices = db.query(PracticeSession).count()
     average_score = db.query(func.avg(PracticeSession.score)).scalar()
     avg_score_rounded = round(average_score, 2) if average_score is not None else 0.0
     total_unique_words = db.query(PracticeSession.word_id).distinct().count()
-
 
     level_counts = db.query(
         Word.difficulty_level, 
@@ -27,7 +24,6 @@ def get_summary(db: Session = Depends(get_db)):
     level_distribution: Dict[str, int] = {
         level: count for level, count in level_counts
     }
-
     all_levels: List[DifficultyLevel] = ['Beginner', 'Intermediate', 'Advanced']
     final_distribution = {level: level_distribution.get(level, 0) for level in all_levels}
     
@@ -41,13 +37,9 @@ def get_summary(db: Session = Depends(get_db)):
 
 @router.get("/history", response_model=List[HistoryItem])
 def get_history(limit: int = 10, db: Session = Depends(get_db)):
-    """Get last 10 practice sessions"""
-    
-
     history_records = db.query(PracticeSession).options(joinedload(PracticeSession.word_rel))\
         .order_by(PracticeSession.practiced_at.desc())\
         .limit(limit).all()
-
 
     history_list: List[HistoryItem] = [
         HistoryItem(
@@ -60,6 +52,10 @@ def get_history(limit: int = 10, db: Session = Depends(get_db)):
         for item in history_records
     ]
     return history_list
+
+
+
+
 
 # from fastapi import APIRouter, Depends
 # from sqlalchemy.orm import Session

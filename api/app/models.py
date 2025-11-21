@@ -1,4 +1,3 @@
-
 from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Text, Enum, DECIMAL
 from sqlalchemy.orm import relationship
 from datetime import datetime
@@ -11,7 +10,6 @@ class Word(Base):
     definition = Column(Text)
     difficulty_level = Column(Enum('Beginner', 'Intermediate', 'Advanced'), default='Beginner')
     
-
     practices = relationship("PracticeSession", back_populates="word_rel") 
 
 class PracticeSession(Base):
@@ -25,8 +23,11 @@ class PracticeSession(Base):
     corrected_sentence = Column(Text)
     practiced_at = Column(DateTime, default=datetime.now)
     
-
     word_rel = relationship("Word", back_populates="practices")
+    
+
+
+
 
 # from sqlalchemy import Column, Integer, String, Text, DECIMAL, TIMESTAMP, Enum as SQLEnum
 # from datetime import datetime
