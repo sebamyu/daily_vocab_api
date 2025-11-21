@@ -3,8 +3,8 @@ import time
 
 def mock_ai_validation(sentence: str, word: str, difficulty_level: str) -> dict:
     time.sleep(0.01)
-
     base_score = 70
+    
     if len(sentence.split()) > 5 and word.lower() in sentence.lower():
         base_score += 15
         suggestion = f"Excellent! The word '{word}' is used well."

@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
 from . import models
-from typing import Dict, Any
 
 def create_practice_submission(
     db: Session, 
