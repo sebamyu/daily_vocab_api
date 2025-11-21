@@ -1,8 +1,9 @@
 from pydantic import BaseModel
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Literal
 from datetime import datetime
 
-DifficultyLevel = 'Beginner' | 'Intermediate' | 'Advanced'
+
+DifficultyLevel = Literal['Beginner', 'Intermediate', 'Advanced'] 
 
 class WordResponse(BaseModel):
     id: int
