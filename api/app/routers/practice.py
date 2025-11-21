@@ -4,7 +4,7 @@ from app.database import get_db
 from app.models import Word, PracticeSession
 from app.schemas import ValidateSentenceRequest, ValidateSentenceResponse
 from app.utils import mock_ai_validation
-from app import crud
+from api.app import crud1
 
 router = APIRouter()
 
@@ -27,7 +27,7 @@ def validate_sentence(
 
     user_id = 1 
     
-    crud.create_practice_submission(
+    crud1.create_practice_submission(
         db,
         user_id=user_id,
         word_id=request.word_id,
