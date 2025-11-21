@@ -1,3 +1,4 @@
+
 from sqlalchemy.orm import Session
 from . import models
 from typing import Dict, Any
@@ -11,7 +12,6 @@ def create_practice_submission(
     feedback: str,
     corrected_sentence: str
 ):
-
     db_submission = models.PracticeSession(
         user_id=user_id,
         word_id=word_id,

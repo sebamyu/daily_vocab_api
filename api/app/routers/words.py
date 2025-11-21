@@ -1,18 +1,16 @@
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from sqlalchemy import func
-import random
 from app.models import Word
 from app.schemas import WordResponse
 from app.database import get_db
+import random # <-- NEW IMPORT
 
 router = APIRouter()
 
 @router.get("/word", response_model=WordResponse)
 def get_random_word(db: Session = Depends(get_db)):
-
     words = db.query(Word).all()
-    
     if not words:
         raise HTTPException(
             status_code=404,

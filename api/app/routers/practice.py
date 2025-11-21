@@ -1,20 +1,19 @@
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models import Word, PracticeSession
 from app.schemas import ValidateSentenceRequest, ValidateSentenceResponse
 from app.utils import mock_ai_validation
-from api.app import crud1
+from app import crud # <-- ADD THIS IMPORT
 
 router = APIRouter()
-
 
 @router.post("/validate-sentence", response_model=ValidateSentenceResponse)
 def validate_sentence(
     request: ValidateSentenceRequest,
     db: Session = Depends(get_db)
 ):
-
     word_data = db.query(Word).filter(Word.id == request.word_id).first()
     if not word_data:
         raise HTTPException(status_code=404, detail=f"Word ID {request.word_id} not found.")
@@ -26,8 +25,7 @@ def validate_sentence(
     )
 
     user_id = 1 
-    
-    crud1.create_practice_submission(
+    crud.create_practice_submission(
         db,
         user_id=user_id,
         word_id=request.word_id,
@@ -36,7 +34,6 @@ def validate_sentence(
         feedback=result['suggestion'],
         corrected_sentence=result['corrected_sentence']
     )
-
     return ValidateSentenceResponse(**result)
 
 # from fastapi import APIRouter, Depends, HTTPException
